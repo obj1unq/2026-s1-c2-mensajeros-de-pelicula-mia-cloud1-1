@@ -1,0 +1,31 @@
+import mensajeros.*
+
+describe "Mensajeria de Peliculas" {
+    test "El paquete de George que no está pago no puede ser llevado por Neo a la matrix." {
+        paqueteDeGeorge.estaPago(false)
+        paqueteDeGeorge.destino(laMatrix)
+        assert.notThat(paqueteDeGeorge.puedeSerEntregado(neo))
+    }
+    test "El paquete de George que sí está pago puede ser llevado por Jean a la matrix" {
+        paqueteDeGeorge.estaPago(true) 
+        paqueteDeGeorge.destino(laMatrix) 
+        assert.that(paqueteDeGeorge.puedeSerEntregado(jeanGray))
+    }
+    test "El paquete de George que sí está pago no puede ser llevado por Sara (que pesa 70kg) a Brooklyn si es que utiliza un camión con un acoplado ." {
+        paqueteDeGeorge.estaPago(true)
+        paqueteDeGeorge.destino(puenteDeBrooklyn)
+        saraConnor.peso(70)
+        saraConnor.vehiculo(camion)
+        camion.cantidadDeAcoplados(1)
+        assert.notThat(paqueteDeGeorge.puedeSerEntregado(saraConnor))
+
+    }
+    test "El paquete de George que si esta pago puede ser llevado por Sara (70 kg) a Brooklyn si es que utiliza una moto" {
+        paqueteDeGeorge.estaPago(true)
+        paqueteDeGeorge.destino(puenteDeBrooklyn)
+        saraConnor.peso(70)
+        saraConnor.vehiculo(moto)
+        assert.that(paqueteDeGeorge.puedeSerEntregado(saraConnor))
+    }
+}
+
